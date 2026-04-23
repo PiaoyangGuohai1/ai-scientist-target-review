@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-scientist-target-review"
+version = "0.1.0"
+description = "An agentic workflow for AIDD target triage with a fail-closed Reviewer guardrail."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "longxinyang" }]
+dependencies = [
+    "langgraph>=0.2.40",
+    "langchain-core>=0.3.15",
+    "langchain-anthropic>=0.3.0",
+    "langchain-openai>=0.3.0",
+    "pydantic>=2.7",
+    "typer>=0.12",
+    "rich>=13.7",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+ai-scientist = "ai_scientist.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_scientist"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
